@@ -24,8 +24,8 @@ app.use(session({
 }));
 
 // 요청 크기 제한 설정
-app.use(express.json({ limit: '100mb' }));  // JSON 본문 크기 제한 설정
-app.use(express.urlencoded({ extended: true, limit: '10mb' })); // URL 인코딩된 데이터의 크기 제한 설정
+app.use(express.json({ limit: '1000mb' }));  // JSON 본문 크기 제한 설정
+app.use(express.urlencoded({ extended: true, limit: '1000mb' })); // URL 인코딩된 데이터의 크기 제한 설정
 
 // 라우터 불러오기
 const userRoutes = require('./routes/userAdvertiser');

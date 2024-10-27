@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +11,11 @@
     <div class="content-container">
         <h1>마이페이지</h1>
         <p>내 정보를 확인하고 수정할 수 있는 페이지입니다.</p>
-        <div class="product-list-container">
-            <h2>내가 올린 상품들</h2>
-            <ul id="productList"></ul> <!-- 상품 목록을 표시할 리스트 -->
-        </div>
+        <h2>내가 올린 상품 목록</h2>
+        <ul id="productList"></ul> <!-- 상품 목록이 표시될 영역 -->
+        <div id="message"></div> <!-- 성공/오류 메시지 표시 -->
     </div>
-    <script src="navbar.js"></script> <!-- 네비게이션 JS -->
-    <script src="my_page.js"></script> <!-- 마이페이지 JS -->
+    <script src="navbar.js"></script>
+    <script src="my_page.js"></script> <!-- 페이지별 스크립트 -->
 </body>
 </html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="advertiser_login.css"> <!-- 광고주 로그인 전용 스타일 -->
+    <title>Advertiser Login</title>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Login</h1>
+        <input type="text" id="ad_id" class="input-field" placeholder="ID"> <!-- ad_id로 로그인 -->
+        <input type="password" id="password" class="input-field" placeholder="Password">
+        <div class="forgot-password" id="forgotPassword">Forgot password?</div>
+        <div class="button" id="loginButton">Login</div>
+        <div class="button" id="registerButton">Register</div>
+    </div>
+
+    <script>
+        document.getElementById('loginButton').addEventListener('click', async function() {
+            const ad_id = document.getElementById('ad_id').value;
+            const password = document.getElementById('password').value;
+
+            // 유효성 검사
+            if (!ad_id || !password) {
+                alert('아이디와 비밀번호를 입력해주세요.');
+                return;
+            }
+
+            // 백엔드로 로그인 요청 보내기
+            try {
+                const response = await fetch('http://localhost:3000/api/users/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ ad_id, password })  // 요청 본문에 ad_id와 password를 포함
+                });
+
+                const data = await response.json();
+                console.log('서버 응답:', data);  // 서버 응답 데이터 확인
+
+                if (response.ok && data.message === 'Login success!') {
+                    // 로그인 성공 시 로컬 스토리지에 ad_id 저장
+                    localStorage.setItem('ad_id', data.ad_id);  // 서버에서 받은 ad_id를 저장
+                    alert('로그인 성공! 광고주 홈으로 이동합니다.');
+                    window.location.href = 'advertiser_home.html';  // 로그인 성공 후 홈으로 리디렉션
+                } else {
+                    alert('로그인 실패: ' + data.message);
+                }
+            } catch (error) {
+                console.error('오류:', error);
+                alert('오류가 발생했습니다. 다시 시도해주세요.');
+            }
+        });
+
+        // 회원가입 버튼 클릭 시
+        document.getElementById('registerButton').addEventListener('click', function() {
+            window.location.href = 'advertiser_register.html'; // 광고주 회원가입 페이지로 이동
+        });
+
+        // 비밀번호 찾기 클릭 시
+        document.getElementById('forgotPassword').addEventListener('click', function() {
+            window.location.href = 'forgot_password.html'; // 비밀번호 찾기 페이지로 이동
+        });
+    </script>
+</body>
+</html>

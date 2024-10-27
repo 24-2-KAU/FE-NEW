@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login_navigation.css"> <!-- 로그인 네비게이션 전용 스타일 -->
+    <title>Login Navigation</title>
+</head>
+<body>
+    <div class="container">
+        <div class="card" id="advertiserCard">
+            <span>광고주 로그인</span>
+            <video class="card-video" id="advertiserVideo" muted>
+                <source src="videos/advertiser.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="card" id="userCard">
+            <span>일반 사용자</span>
+            <video class="card-video" id="userVideo" muted>
+                <source src="videos/user.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="card" id="influencerCard">
+            <span>인플루언서 로그인</span>
+            <video class="card-video" id="influencerVideo" muted>
+                <source src="videos/influencer.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+    <script src="card_hover.js"></script> <!-- 외부 JavaScript 파일 추가 -->
+    <script>
+        document.getElementById('advertiserCard').addEventListener('click', function() {
+            window.location.href = 'advertiser_login.html'; // 광고주 로그인 페이지로 이동
+        });
+
+        document.getElementById('influencerCard').addEventListener('click', function() {
+            window.location.href = 'influencer_login.html'; // 인플루언서 로그인 페이지로 이동
+        });
+
+        document.getElementById('userCard').addEventListener('click', function() {
+            // 일반 사용자 로그인 페이지로 이동 (원하는 URL로 대체 가능)
+            alert('일반 사용자 페이지로 이동하는 기능을 추가해주세요.');
+        });
+    </script>
+</body>
+</html>

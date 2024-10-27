@@ -1,0 +1,6 @@
+/* 알림 페이지 고유 스타일 */
+.notifications-content {
+    background-color: #fff3e0;
+    padding: 20px;
+    border-radius: 8px;
+}

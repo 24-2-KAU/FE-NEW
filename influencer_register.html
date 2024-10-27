@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="influencer_register.css"> <!-- 인플루언서 회원가입 전용 스타일 -->
+    <title>Influencer Register</title>
+</head>
+<body>
+    <div class="register-container">
+        <h1>Influencer Register</h1>
+        <div class="id-check-group">
+            <input type="text" id="username" class="input-field" placeholder="ID">
+            <button class="check-button" id="checkIdButton">Check ID</button>
+        </div>
+        <input type="text" id="name" class="input-field" placeholder="Name">
+        <input type="text" id="phone" class="input-field" placeholder="전화번호">
+        <input type="email" id="email" class="input-field" placeholder="Email">
+        <input type="password" id="password" class="input-field" placeholder="Password">
+        <input type="password" id="confirmPassword" class="input-field" placeholder="Re-enter Password">
+
+        <h3>주시청연령</h3>
+        <div class="checkbox-group" id="ageGroup">
+            <label><input type="checkbox" value="10대"> 10대</label>
+            <label><input type="checkbox" value="20-23"> 20~23</label>
+            <label><input type="checkbox" value="24-26"> 24~26</label>
+            <label><input type="checkbox" value="50대 이상"> 50대 이상</label>
+        </div>
+
+        <h3>주플랫폼</h3>
+        <div class="checkbox-group" id="platforms">
+            <label><input type="checkbox" value="유튜브"> 유튜브</label>
+            <label><input type="checkbox" value="인스타"> 인스타</label>
+            <label><input type="checkbox" value="틱톡"> 틱톡</label>
+            <label><input type="checkbox" value="블로그"> 블로그</label>
+        </div>
+
+        <h3>프로필주소</h3>
+        <input type="text" id="youtubeProfile" class="input-field" placeholder="유튜브 프로필 URL">
+        <input type="text" id="tiktokProfile" class="input-field" placeholder="틱톡 프로필 URL">
+        <input type="text" id="instaProfile" class="input-field" placeholder="인스타 프로필 URL">
+        <input type="text" id="blogProfile" class="input-field" placeholder="블로그 프로필 URL">
+
+        <h3>콘텐츠 해시태그</h3>
+        <input type="text" id="hashtag" class="input-field" placeholder="해시태그">
+
+        <h3>인플루언서 사진</h3>
+        <input type="file" id="profilePicture" class="file-input" accept="image/*">
+
+        <h3>시청자성별</h3>
+        <div class="checkbox-group" id="viewerGender">
+            <label><input type="checkbox" value="남성"> 남</label>
+            <label><input type="checkbox" value="여성"> 여</label>
+        </div>
+
+        <div class="button" id="registerButton">Register</div>
+    </div>
+
+    <script>
+        // ID 중복 확인 버튼 클릭 시
+        document.getElementById('checkIdButton').addEventListener('click', function() {
+            const username = document.getElementById('username').value;
+
+            // 간단한 중복 확인 로직 (실제 구현에서는 서버와의 통신 필요)
+            if (username === 'influencer') {
+                alert('이미 사용 중인 ID입니다. 다른 ID를 입력해주세요.');
+            } else {
+                alert('사용 가능한 ID입니다.');
+            }
+        });
+
+        // 회원가입 버튼 클릭 시
+        document.getElementById('registerButton').addEventListener('click', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // 비밀번호 확인 로직
+            if (password !== confirmPassword) {
+                alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
+            } else {
+                // 회원가입 완료 후 로그인 화면으로 이동
+                alert('회원가입 성공! 인플루언서 로그인 화면으로 이동합니다.');
+                window.location.href = 'influencer_login.html';
+            }
+        });
+    </script>
+</body>
+</html>

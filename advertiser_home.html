@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"> <!-- 공통 CSS -->
+    <link rel="stylesheet" href="advertiser_home.css"> <!-- 페이지별 고유 CSS -->
+    <title>Find Influencers</title>
+</head>
+<body data-page="home">
+    <!-- 콘텐츠 영역 -->
+    <div class="content-container home-content">
+        <h1>홈</h1>
+        <div class="video-feed">
+            <!-- 비디오 카드 1 -->
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe class="youtube-video" width="100%" height="315" src="https://www.youtube.com/embed/BtouImEHDQM?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="video-info">
+                    <h3>+influencer 계액을 통해 만들어진 영상 입니다</h3>
+                    <p>이 영상의 상세 내용</p>
+                </div>
+            </div>
+            <!-- 비디오 카드 2 -->
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe class="youtube-video" width="100%" height="315" src="https://www.youtube.com/embed/knienXJ9oI0?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="video-info">
+                    <h3>비디오 제목 2</h3>
+                    <p>이 비디오는 예시로 추가된 것입니다.</p>
+                </div>
+            </div>
+            <!-- 추가 비디오 카드 -->
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe class="youtube-video" width="100%" height="315" src="https://www.youtube.com/embed/TDJN_zSU6oc?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="video-info">
+                    <h3>비디오 제목 3</h3>
+                    <p>이 비디오는 예시로 추가된 것입니다.</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe class="youtube-video" width="100%" height="315" src="https://www.youtube.com/embed/BtouImEHDQM?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="video-info">
+                    <h3>비디오 제목 2</h3>
+                    <p>이 비디오는 예시로 추가된 것입니다.</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe class="youtube-video" width="100%" height="315" src="https://www.youtube.com/embed/TDJN_zSU6oc?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="video-info">
+                    <h3>비디오 제목 2</h3>
+                    <p>이 비디오는 예시로 추가된 것입니다.</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe class="youtube-video" width="100%" height="315" src="https://www.youtube.com/embed/BtouImEHDQM?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="video-info">
+                    <h3>비디오 제목 2</h3>
+                    <p>이 비디오는 예시로 추가된 것입니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="navbar.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script> <!-- 유튜브 API 불러오기 -->
+    <script>
+        let players = [];
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const videos = document.querySelectorAll(".youtube-video");
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const iframe = entry.target;
+
+                    let player = players.find(p => p.getIframe() === iframe);
+                    if (!player) {
+                        player = new YT.Player(iframe, {
+                            events: {
+                                'onReady': (event) => {
+                                    event.target.mute();  // 비디오 음소거
+                                    if (entry.isIntersecting) {
+                                        event.target.playVideo();  // 화면에 보이면 자동 재생
+                                    }
+                                }
+                            }
+                        });
+                        players.push(player);
+                    }
+
+                    if (entry.isIntersecting) {
+                        player.playVideo();  // 화면에 보이면 재생
+                    } else {
+                        player.pauseVideo(); // 화면에서 벗어나면 재생 중지
+                    }
+                });
+            }, {
+                threshold: 0.5 // 50% 이상 화면에 보일 때 재생
+            });
+
+            videos.forEach(video => {
+                observer.observe(video);
+            });
+        });
+
+        // YouTube API 로드
+        function onYouTubeIframeAPIReady() {
+            console.log("YouTube API 로드 완료");
+        }
+    </script>
+</body>
+</html>

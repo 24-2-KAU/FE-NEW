@@ -1,0 +1,6 @@
+/* 홈 페이지 고유 스타일 */
+.home-content {
+    background-color: #f0f0f0;
+    padding: 30px;
+    border-radius: 8px;
+}

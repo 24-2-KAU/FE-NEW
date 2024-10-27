@@ -1,0 +1,85 @@
+/* 전체 페이지 스타일 */
+body {
+    background-color: #6CA0DC;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* 화면의 위쪽 여유를 위해 flex-start 사용 */
+    height: 100%;
+    margin: 0;
+    padding: 40px; /* 전체 화면에 상하 여백 추가 */
+    box-sizing: border-box;
+    font-family: Arial, sans-serif; /* 기본 글꼴 설정 */
+}
+
+/* 회원가입 컨테이너 스타일 */
+.register-container {
+    width: 900px;
+    background: #BEDAFA;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+/* 회원가입 제목 스타일 */
+.register-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* 입력 필드와 파일 입력 필드 스타일 */
+.input-field, .file-input {
+    width: calc(100% - 120px);
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+/* 버튼 스타일 (회원가입 버튼, ID 중복 확인 버튼 공통) */
+.button, .check-button {
+    width: 90%;
+    padding: 20px; /* 버튼 높이 설정 */
+    margin: 15px 0;
+    border-radius: 8px;
+    border: 2px solid #ffffff;
+    background: transparent;
+    color: #ffffff;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.button:hover, .check-button:hover {
+    background: #ffffff;
+    color: #6CA0DC;
+}
+
+/* ID 중복 확인 버튼의 추가적인 크기 설정 */
+.check-button {
+    width: 100px;
+    padding: 10px;
+    margin: 0; /* 추가적인 여백을 없앱니다. */
+}
+
+/* 체크박스 그룹 스타일 */
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* ID 체크 그룹 스타일 */
+.id-check-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

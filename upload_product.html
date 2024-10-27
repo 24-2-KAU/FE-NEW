@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"> <!-- 공통 CSS -->
+    <link rel="stylesheet" href="upload_product.css"> <!-- 페이지별 고유 CSS -->
+    <title>상품 올리기</title>
+</head>
+<body data-page="uploadProduct">
+    <div class="content-container">
+        <h1>상품 올리기</h1>
+        <form id="productForm" enctype="multipart/form-data">
+            <label for="product_name">상품 이름:</label>
+            <input type="text" id="product_name" name="product_name" required><br><br>
+            
+            <label for="product_price">상품 가격:</label>
+            <input type="number" id="product_price" name="product_price" required><br><br>
+            
+            <label for="budget">광고 예산:</label>
+            <input type="number" id="budget" name="budget" required><br><br>
+            
+            <label for="viewer_age">타겟 시청자 연령:</label>
+            <input type="number" id="viewer_age" name="viewer_age" required><br><br>
+            
+            <label for="viewer_gender">타겟 시청자 성별:</label>
+            <select id="viewer_gender" name="viewer_gender" required>
+                <option value="male">남성</option>
+                <option value="female">여성</option>
+                <option value="other">기타</option>
+            </select><br><br>
+            
+            <label for="platform">광고할 플랫폼:</label>
+            <select id="platform" name="platform" required>
+                <option value="youtube">YouTube</option>
+                <option value="instagram">Instagram</option>
+                <option value="facebook">Facebook</option>
+                <option value="twitter">Twitter</option>
+            </select><br><br>
+            
+            <label for="hashtag">해시태그:</label>
+            <input type="text" id="hashtag" name="hashtag" required><br><br>
+
+            <!-- 상품 이미지 업로드 -->
+            <label for="product_pic">상품 이미지:</label>
+            <input type="file" id="product_pic" name="product_pic" accept="image/*"><br><br>
+
+            <button type="submit">상품 올리기</button>
+        </form>
+        <div id="message"></div> <!-- 메시지를 표시할 div -->
+    </div>
+
+    <script src="navbar.js"></script> <!-- 네비게이션 JS -->
+    <script src="upload_product.js"></script> <!-- 업로드 처리 JS -->
+</body>
+</html>

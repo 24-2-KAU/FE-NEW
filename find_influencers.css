@@ -1,0 +1,65 @@
+/* 인플루언서 찾기 페이지 고유 스타일 */
+.content-container {
+    margin-left: 250px;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #e8f5e9;
+    border-radius: 8px;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.search-bar {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+label {
+    width: 150px;
+    font-size: 1em;
+    text-align: left;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 150px; /* 최소와 최대 입력 필드가 각자 자리 차지 */
+    height: 40px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+}
+
+.range-separator {
+    margin: 0 10px; /* 최소와 최대 사이의 ~ 기호 간격 */
+    font-size: 1.2em; /* ~ 기호 크기 */
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 1em;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.influencer-list {
+    margin-top: 20px;
+}
+
+.influencer-item {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

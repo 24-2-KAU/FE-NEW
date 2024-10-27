@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="influencer_login.css"> <!-- 인플루언서 로그인 전용 스타일 -->
+    <title>Influencer Login</title>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Login</h1>
+        <input type="text" id="username" class="input-field" placeholder="ID">
+        <input type="password" id="password" class="input-field" placeholder="Password">
+        <div class="forgot-password" id="forgotPassword">Forgot password?</div>
+        <div class="button" id="loginButton">Login</div>
+        <div class="button" id="registerButton">Register</div>
+    </div>
+
+    <script>
+        // 로그인 버튼 클릭 시
+        document.getElementById('loginButton').addEventListener('click', function() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // 간단한 인증 로직
+            if (username === 'influencer' && password === 'password123') {
+                // 인플루언서 홈 화면으로 이동 (임시로 alert 사용)
+                alert('로그인 성공! 인플루언서 홈으로 이동합니다.');
+                window.location.href = 'influencer_home.html';
+            } else {
+                alert('ID 또는 비밀번호가 잘못되었습니다. 다시 입력해주세요.');
+            }
+        });
+
+        // 회원가입 버튼 클릭 시
+        document.getElementById('registerButton').addEventListener('click', function() {
+            window.location.href = 'influencer_register.html'; // 인플루언서 회원가입 페이지로 이동
+        });
+
+        // 비밀번호 찾기 클릭 시
+        document.getElementById('forgotPassword').addEventListener('click', function() {
+            window.location.href = 'forgot_password.html'; // 비밀번호 찾기 페이지로 이동
+        });
+    </script>
+</body>
+</html>

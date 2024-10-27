@@ -1,0 +1,6 @@
+/* 연락중인 메신저 페이지 고유 스타일 */
+.messenger-content {
+    background-color: #e3f2fd;
+    padding: 20px;
+    border-radius: 8px;
+}

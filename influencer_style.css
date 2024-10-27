@@ -1,0 +1,59 @@
+/* 공통 스타일 */
+body {
+    margin: 0;
+    display: flex;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.nav-container {
+    width: 250px;
+    background-color: #BEDAFA;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    box-sizing: border-box;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.nav-button {
+    width: 100%;
+    background: none;
+    border: none;
+    color: #fff;
+    padding: 15px 20px;
+    text-align: left;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.nav-button:hover {
+    background-color: #BEDAFA;
+}
+
+.nav-button.active {
+    background-color: #6CA0DC;
+    color: #BEDAFA;
+}
+
+/* 공통 콘텐츠 스타일 */
+.content-container {
+    margin-left: 250px;
+    padding: 20px;
+    box-sizing: border-box;
+    width: calc(100% - 250px);
+    height: 100vh;
+    overflow-y: auto;
+}
+
+h1 {
+    color: #BEDAFA;
+}

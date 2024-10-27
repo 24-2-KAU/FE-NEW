@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"> <!-- 공통 CSS -->
+    <link rel="stylesheet" href="my_page.css"> <!-- 페이지별 고유 CSS -->
+    <title>My Page</title>
+</head>
+<body data-page="myPage">
+    <div class="content-container">
+        <h1>마이페이지</h1>
+        <p>내 정보를 확인하고 수정할 수 있는 페이지입니다.</p>
+        <div class="product-list-container">
+            <h2>내가 올린 상품들</h2>
+            <ul id="productList"></ul> <!-- 상품 목록을 표시할 리스트 -->
+        </div>
+    </div>
+    <script src="navbar.js"></script> <!-- 네비게이션 JS -->
+    <script src="my_page.js"></script> <!-- 마이페이지 JS -->
+</body>
+</html>

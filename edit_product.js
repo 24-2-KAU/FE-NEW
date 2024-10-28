@@ -18,12 +18,20 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById("platform").value = product.platform;
             document.getElementById("hashtag").value = product.hashtag;
 
+            // 기존 이미지 미리보기
+            const imagePreviewContainer = document.getElementById("imagePreviewContainer");
             if (product.product_pic) {
-                const imgPreview = document.createElement("img");
-                imgPreview.src = `data:image/jpeg;base64,${product.product_pic}`; // 데이터 URL 포맷에 맞게
-                imgPreview.style.maxWidth = "200px";
-                imgPreview.alt = "기존 이미지 미리보기";
-                document.getElementById("product_pic").parentNode.appendChild(imgPreview);
+                const existingImgPreview = document.createElement("img");
+                existingImgPreview.src = product.product_pic; // 기존 Base64 이미지 사용
+                existingImgPreview.style.maxWidth = "200px";
+                existingImgPreview.alt = "기존 이미지 미리보기";
+
+                // 이미지 미리보기 영역에 추가
+                imagePreviewContainer.appendChild(existingImgPreview);
+            } else {
+                const noImageMsg = document.createElement("p");
+                noImageMsg.innerText = "기존 이미지가 없습니다.";
+                imagePreviewContainer.appendChild(noImageMsg);
             }
         } catch (error) {
             alert(`상품 정보를 불러오는 중 오류가 발생했습니다: ${error.message}`);
@@ -46,6 +54,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         data.platform = document.getElementById("platform").value;
         data.hashtag = document.getElementById("hashtag").value;
 
+        // 새로운 이미지를 업로드한 경우에만 Base64로 변환
         if (productPicFile) {
             try {
                 const base64ProductPic = await encodeImageToBase64(productPicFile); // Base64로 변환
@@ -54,12 +63,43 @@ document.addEventListener("DOMContentLoaded", async () => {
                 alert('이미지 인코딩에 실패했습니다.');
                 return;
             }
+        } else {
+            // 새 이미지를 업로드하지 않은 경우 기존 이미지 URL을 data 객체에 추가
+            const existingImageSrc = document.querySelector("#imagePreviewContainer img")?.src;
+            if (existingImageSrc) {
+                data.product_pic = existingImageSrc;
+            }
         }
 
         const product_id = urlParams.get("product_id");
 
         // 상품 수정 요청
         await updateProduct(product_id, data);
+    });
+
+    // 이미지 파일 선택 시 미리보기 업데이트
+    document.getElementById("product_pic").addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        const imagePreviewContainer = document.getElementById("imagePreviewContainer");
+        const existingImage = imagePreviewContainer.querySelector("img"); // 기존 이미지 미리보기 선택
+        const newImgPreview = document.createElement("img");
+        
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                newImgPreview.src = e.target.result; // 선택된 이미지 미리보기
+                newImgPreview.style.maxWidth = "200px";
+                newImgPreview.alt = "업로드된 이미지 미리보기";
+                
+                // 기존 이미지를 포함하여 두 개의 이미지를 미리보기 영역에 추가
+                if (existingImage) {
+                    imagePreviewContainer.innerHTML = ''; // 기존 미리보기 초기화
+                    imagePreviewContainer.appendChild(existingImage); // 기존 이미지 유지
+                }
+                imagePreviewContainer.appendChild(newImgPreview); // 새 이미지 미리보기 추가
+            };
+            reader.readAsDataURL(file);
+        }
     });
 });
 

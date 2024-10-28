@@ -1,3 +1,19 @@
+document.getElementById('product_pic').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    const imagePreview = document.getElementById('imagePreview');
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            imagePreview.src = e.target.result; // 선택한 이미지의 데이터 URL
+            imagePreview.style.display = 'block'; // 이미지 미리보기 표시
+        }
+        reader.readAsDataURL(file);
+    } else {
+        imagePreview.style.display = 'none'; // 파일 선택이 없으면 미리보기 숨김
+    }
+});
+
 document.getElementById('productForm').addEventListener('submit', async (event) => {
     event.preventDefault();
 

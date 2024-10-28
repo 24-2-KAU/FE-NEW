@@ -1,46 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="influencer_login.css"> <!-- 인플루언서 로그인 전용 스타일 -->
-    <title>Influencer Login</title>
+    <title>Influencer Login & Signup</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+        .login-btn {
+            background-color: #4285f4;
+            color: #fff;
+        }
+        .signup-btn {
+            background-color: #34a853;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
-    <div class="login-container">
-        <h1>Login</h1>
-        <input type="text" id="username" class="input-field" placeholder="ID">
-        <input type="password" id="password" class="input-field" placeholder="Password">
-        <div class="forgot-password" id="forgotPassword">Forgot password?</div>
-        <div class="button" id="loginButton">Login</div>
-        <div class="button" id="registerButton">Register</div>
+    <div class="container">
+        <h1>Influencer Platform</h1>
+        <p>구글로 로그인하거나 회원가입하세요</p>
+        <button class="login-btn" onclick="login()">Google 로그인</button>
+        <button class="signup-btn" onclick="signup()">Google 회원가입</button>
     </div>
 
     <script>
-        // 로그인 버튼 클릭 시
-        document.getElementById('loginButton').addEventListener('click', function() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+        function login() {
+            // 백엔드 서버의 주소로 변경
+            window.location.href = 'http://localhost:3000/login';
+        }
 
-            // 간단한 인증 로직
-            if (username === 'influencer' && password === 'password123') {
-                // 인플루언서 홈 화면으로 이동 (임시로 alert 사용)
-                alert('로그인 성공! 인플루언서 홈으로 이동합니다.');
-                window.location.href = 'influencer_home.html';
-            } else {
-                alert('ID 또는 비밀번호가 잘못되었습니다. 다시 입력해주세요.');
-            }
-        });
-
-        // 회원가입 버튼 클릭 시
-        document.getElementById('registerButton').addEventListener('click', function() {
-            window.location.href = 'influencer_register.html'; // 인플루언서 회원가입 페이지로 이동
-        });
-
-        // 비밀번호 찾기 클릭 시
-        document.getElementById('forgotPassword').addEventListener('click', function() {
-            window.location.href = 'forgot_password.html'; // 비밀번호 찾기 페이지로 이동
-        });
+        function signup() {
+            // 백엔드 서버의 주소로 변경
+            window.location.href = 'http://localhost:3000/signup';
+        }
     </script>
 </body>
 </html>

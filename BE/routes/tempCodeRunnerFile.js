@@ -1,1 +1,1 @@
-/api/users/signup
+localStorage.setItem('email', '${email}');

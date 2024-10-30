@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
     `);
 });
 
-// 구글 로그인 화면을 가져오기 위한 URL
+// 구글 로그인 화면 URL 생성
 router.get('/login', (req, res) => {
     let url = 'https://accounts.google.com/o/oauth2/v2/auth';
     url += `?client_id=${GOOGLE_CLIENT_ID}`;
@@ -29,7 +29,7 @@ router.get('/login', (req, res) => {
     res.redirect(url);
 });
 
-// 구글 회원가입 화면을 가져오기 위한 URL
+// 구글 회원가입 화면 URL 생성
 router.get('/signup', (req, res) => {
     let url = 'https://accounts.google.com/o/oauth2/v2/auth';
     url += `?client_id=${GOOGLE_CLIENT_ID}`;
@@ -40,7 +40,7 @@ router.get('/signup', (req, res) => {
 });
 
 // 로그인 리디렉션 처리
-router.get('/login/redirect', async (req, res) => {
+router.get('/oauth/login/redirect', async (req, res) => {
     const code = req.query.code;
 
     try {
@@ -72,10 +72,16 @@ router.get('/login/redirect', async (req, res) => {
 
             if (results.length > 0) {
                 console.log('로그인 성공:', email);
-                return res.send('<h1>로그인 성공!</h1>');
+                res.send(`
+                    <script>
+                        alert('Login completed');
+                        localStorage.setItem('email', '${email}');
+                        window.location.href = '/influencer_home.html'; // 절대 경로로 리디렉션
+                    </script>
+                `);
             } else {
                 console.log('회원 정보가 없습니다:', email);
-                return res.send('<h1>회원 정보가 없습니다. 회원가입을 진행하세요.</h1>');
+                res.send('<h1>회원 정보가 없습니다. 회원가입을 진행하세요.</h1>');
             }
         });
 
@@ -86,7 +92,7 @@ router.get('/login/redirect', async (req, res) => {
 });
 
 // 회원가입 리디렉션 처리
-router.get('/signup/redirect', async (req, res) => {
+router.get('/oauth/signup/redirect', async (req, res) => {
     const code = req.query.code;
 
     try {
@@ -118,21 +124,26 @@ router.get('/signup/redirect', async (req, res) => {
 
             if (results.length > 0) {
                 console.log('이미 회원가입된 사용자:', email);
-                return res.send(`
+                res.send(`
                     <h1>이미 회원가입이 되었습니다.</h1>
                     <a href="/">처음 화면으로 이동</a>
                 `);
             } else {
-                // 새 사용자 등록
-                connection.query('INSERT INTO mydb.user_influencer (influencer_id, email, name) VALUES (?, ?, ?)',
-                    [email, email, name],
+                // 새 사용자 등록 (influencer_id와 email에 모두 email 값 입력)
+                connection.query('INSERT INTO mydb.user_influencer (influencer_id, email, name) VALUES (?, ?, ?)', 
+                    [email, email, name], 
                     (err, result) => {
                         if (err) {
                             console.error('DB 저장 오류:', err);
                             return res.status(500).send('회원가입 중 오류 발생');
                         }
                         console.log('새 사용자 등록 성공:', email);
-                        return res.send('<h1>회원가입 성공!</h1>');
+                        res.send(`
+                            <script>
+                                alert('Signup completed');
+                                window.location.href = '/login';
+                            </script>
+                        `);
                     }
                 );
             }

@@ -4,6 +4,7 @@ const axios = require('axios');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const session = require('express-session');
+const path = require('path');
 const app = express();
 const port = 3000;
 
@@ -33,6 +34,9 @@ app.use(express.urlencoded({ extended: true, limit: '1000mb' }));
 // bodyParser 설정
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
+
+// 정적 파일 서빙 설정
+app.use(express.static(path.join(__dirname, '../')));  // 루트 디렉토리에서 정적 파일을 서빙
 
 // 라우터 불러오기
 const userRoutes = require('./routes/userAdvertiser');

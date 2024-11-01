@@ -16,8 +16,16 @@ document.addEventListener("DOMContentLoaded", function () {
         <button class="nav-button ${pageName === 'messenger' ? 'active' : ''}" onclick="location.href='influencer_messenger.html'">연락중인 메신저</button>
         <button class="nav-button ${pageName === 'myPage' ? 'active' : ''}" onclick="location.href='influencer_my_page.html'">마이페이지</button>
         <button class="nav-button ${pageName === 'notifications' ? 'active' : ''}" onclick="location.href='influencer_notifications.html'">알림</button>
+        <button class="nav-button ${pageName === 'main' ? 'active' : ''}" onclick="location.href='index.html'">메인</button>
+        <button class="nav-button" id="logoutButton">로그아웃</button>
     </div>
-    <p>Logged in as: ${email}</p>`;
+    `;
     
     document.body.insertAdjacentHTML('afterbegin', navHTML);
+
+    // 로그아웃 버튼 클릭 이벤트 처리
+    document.getElementById('logoutButton').addEventListener('click', () => {
+        localStorage.removeItem('email');  // 로컬 스토리지에서 광고주 ID 삭제
+        window.location.href = 'influencer_login.html';  // 로그인 페이지로 이동
+    });
 });

@@ -1,6 +1,27 @@
-/* 연락중인 메신저 페이지 고유 스타일 */
-.messenger-content {
+.content-container {
     background-color: #e3f2fd;
     padding: 20px;
     border-radius: 8px;
+}
+
+.message-container {
+    height: 400px;
+    overflow-y: scroll;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.sent {
+    background-color: #c8e6c9;
+    align-self: flex-end;
+    text-align: right;
+}
+
+.received {
+    background-color: #ffcdd2;
+    align-self: flex-start;
+    text-align: left;
 }

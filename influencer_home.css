@@ -1,9 +1,11 @@
 /* 홈 페이지 고유 스타일 */
-.home-content {
-    background-color: #f0f0f0;
-    padding: 20px;
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
     height: 100vh;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f8f8;
 }
 
 /* 상품 리스트 컨테이너 */

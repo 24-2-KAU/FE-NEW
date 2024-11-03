@@ -1,4 +1,12 @@
 .
+├── AI
+│   ├── __pycache__
+│   │   └── main.cpython-311.pyc
+│   ├── gpt_addVideo.csv
+│   ├── gpt_channel.csv
+│   ├── gpt_popVideo.csv
+│   ├── gpt_recentVideo.csv
+│   └── main.py
 ├── BE
 │   ├── README.md
 │   ├── app.js
@@ -1726,6 +1734,7 @@
 │   ├── package.json
 │   ├── routes
 │   │   ├── README.md
+│   │   ├── chat.js
 │   │   ├── ouath.js
 │   │   ├── products.js
 │   │   ├── tempCodeRunnerFile.js
@@ -1775,6 +1784,8 @@
 │   └── 무제 폴더
 ├── messenger.css
 ├── messenger.html
+├── messenger_advertiser.js
+├── messenger_influencer.js
 ├── my_page.css
 ├── my_page.html
 ├── my_page.js
@@ -1793,4 +1804,4 @@
     ├── influencer.mp4
     └── user.mp4
 
-318 directories, 1476 files
+320 directories, 1485 files

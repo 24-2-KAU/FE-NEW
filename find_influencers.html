@@ -14,74 +14,23 @@
     <div class="content-container">
         <h1>인플루언서 찾기</h1>
         <p>조건을 입력하여 원하는 인플루언서를 검색하세요.</p>
+        <form id="product-form">
+            <label for="title">상품 이름:</label>
+            <input type="text" id="title" name="title" required><br>
 
-        <!-- 검색 필터 -->
-        <form id="search-form">
-            <div class="search-bar">
-                <label for="platform">플랫폼:</label>
-                <select id="platform" name="platform">
-                    <option value="유튜브">유튜브</option>
-                    <option value="인스타그램">인스타그램</option>
-                    <option value="트위터">트위터</option>
-                    <option value="틱톡">틱톡</option>
-                </select>
-            </div>
+            <label for="description">상품 설명:</label>
+            <textarea id="description" name="description" required></textarea><br>
 
-            <div class="search-bar">
-                <label for="hashtag">해시태그:</label>
-                <input type="text" id="hashtag" name="hashtag" placeholder="#뷰티, #패션">
-            </div>
-
-            <div class="search-bar">
-                <label for="viewer_gender">시청자 성별:</label>
-                <select id="viewer_gender" name="viewer_gender">
-                    <option value="남성">남성</option>
-                    <option value="여성">여성</option>
-                    <option value="기타">기타</option>
-                </select>
-            </div>
-
-            <!-- 시청자 연령 (최소/최대) -->
-            <div class="search-bar">
-                <label for="viewer_age_min">시청자 연령:</label>
-                <input type="number" id="viewer_age_min" name="viewer_age_min" placeholder="최소" min="0">
-                <span class="range-separator">~</span> <!-- 최소와 최대 사이에 ~ 기호 추가 -->
-                <input type="number" id="viewer_age_max" name="viewer_age_max" placeholder="최대" min="0">
-            </div>
-
-            <!-- 팔로워 수 (최소/최대) -->
-            <div class="search-bar">
-                <label for="follower_count_min">팔로워 수:</label>
-                <input type="number" id="follower_count_min" name="follower_count_min" placeholder="최소" min="0">
-                <span class="range-separator">~</span> <!-- 최소와 최대 사이에 ~ 기호 추가 -->
-                <input type="number" id="follower_count_max" name="follower_count_max" placeholder="최대" min="0">
-            </div>
-
-            <!-- 시청자 수 (최소/최대) -->
-            <div class="search-bar">
-                <label for="viewer_count_min">시청자 수:</label>
-                <input type="number" id="viewer_count_min" name="viewer_count_min" placeholder="최소" min="0">
-                <span class="range-separator">~</span> <!-- 최소와 최대 사이에 ~ 기호 추가 -->
-                <input type="number" id="viewer_count_max" name="viewer_count_max" placeholder="최대" min="0">
-            </div>
-
-            <!-- 예상 예산 (최소/최대) -->
-            <div class="search-bar">
-                <label for="budget_min">예상 예산:</label>
-                <input type="number" id="budget_min" name="budget_min" placeholder="최소" min="0">
-                <span class="range-separator">~</span> <!-- 최소와 최대 사이에 ~ 기호 추가 -->
-                <input type="number" id="budget_max" name="budget_max" placeholder="최대" min="0">
-            </div>
+            <label for="keywords">상품 키워드:</label>
+            <input type="text" id="keywords" name="keywords" required><br>
 
             <button type="submit">검색</button>
         </form>
 
-        <!-- 인플루언서 리스트 -->
-        <div class="influencer-list">
-            <!-- 검색 결과에 따라 동적으로 인플루언서 항목이 추가될 예정 -->
-        </div>
+        <div id="results-container"></div> <!-- 추천 결과 표시 -->
     </div>
 
     <script src="navbar.js"></script> <!-- 네비게이션 바 로드 -->
+    <script src="find_influencers.js"></script> <!-- 페이지별 JS -->
 </body>
 </html>

@@ -25,8 +25,7 @@ logger = logging.getLogger(__name__)
 # 현재 요청 처리 상태
 is_processing = False
 
-openai.api_key = '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'
-pc = Pinecone(api_key='4bf9c7b8-e4da-4f10-9add-958c9a9e130f')
+
 
 # 상태 엔드포인트 추가
 @app.get("/status")

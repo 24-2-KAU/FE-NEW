@@ -11,12 +11,12 @@ document.addEventListener("DOMContentLoaded", function () {
     
     const navHTML = `
     <div class="nav-container">
-        <button class="nav-button ${pageName === 'home' ? 'active' : ''}" onclick="location.href='influencer_home.html'">홈</button>
-        <button class="nav-button ${pageName === 'customizedContent' ? 'active' : ''}" onclick="location.href='customized_content.html'">맞춤컨텐츠</button>
-        <button class="nav-button ${pageName === 'messenger' ? 'active' : ''}" onclick="location.href='influencer_messenger.html'">연락중인 메신저</button>
-        <button class="nav-button ${pageName === 'myPage' ? 'active' : ''}" onclick="location.href='influencer_my_page.html'">마이페이지</button>
-        <button class="nav-button ${pageName === 'notifications' ? 'active' : ''}" onclick="location.href='influencer_notifications.html'">알림</button>
-        <button class="nav-button ${pageName === 'main' ? 'active' : ''}" onclick="location.href='index.html'">메인</button>
+        <button class="nav-button ${pageName === 'home' ? 'active' : ''}" onclick="location.href='/influencer_home.html'">홈</button>
+        <button class="nav-button ${pageName === 'customizedContent' ? 'active' : ''}" onclick="location.href='/customized_content.html'">맞춤컨텐츠</button>
+        <button class="nav-button ${pageName === 'messenger' ? 'active' : ''}" onclick="location.href='/chatting/influencer_messenger.html'">연락중인 메신저</button>
+        <button class="nav-button ${pageName === 'myPage' ? 'active' : ''}" onclick="location.href='/influencer_my_page.html'">마이페이지</button>
+        <button class="nav-button ${pageName === 'notifications' ? 'active' : ''}" onclick="location.href='/influencer_notifications.html'">알림</button>
+        <button class="nav-button ${pageName === 'main' ? 'active' : ''}" onclick="location.href='/index.html'">메인</button>
         <button class="nav-button" id="logoutButton">로그아웃</button>
     </div>
     `;

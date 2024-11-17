@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advertiser Messenger</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="advertiser_messenger.css">
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+</head>
+<body data-page="messenger">
+    <div class="messenger-container">
+
+        <div id="friendList">
+            <h3>친구 목록</h3>
+            <ul id="friendListContainer">
+                <li>채팅방을 선택하여 메시지를 확인하세요.</li>
+            </ul>
+        </div>
+        
+
+        <!-- 채팅 영역 -->
+        <div class="chat-area">
+            <div class="chat-header">
+                <h2 id="currentFriendName">현재 채팅중인 친구</h2>
+            </div>
+
+            <div id="messageContainer" class="message-container"></div>
+            
+            <div class="message-input-area">
+                <input type="text" id="messageInput" placeholder="메시지를 입력하세요" />
+                <button id="sendButton">Send</button>
+
+            </div>
+        </div>
+    </div>
+    
+    <script src="../navbar.js" type="module"></script>
+    <script src="socketClient.js" type="module"></script>
+    <script src="messenger_advertiser.js" type="module"></script>
+</body>
+</html>

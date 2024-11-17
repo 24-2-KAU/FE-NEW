@@ -1,0 +1,114 @@
+/* Container and Layout */
+.messenger-container {
+    display: flex;
+    height: 100vh;
+    margin-left: 250px; /* Space for the navigation bar */
+}
+#friendList {
+    border-right: 1px solid #ccc;
+    padding: 10px;
+}
+
+#friendList h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.friend-item {
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.friend-item:hover {
+    background-color: #f0f0f0;
+}
+
+#currentFriendName {
+    color: #333;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0;
+    padding: 10px 0;
+}
+
+.chat-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #f1f3f5;
+}
+
+.chat-header {
+    padding: 20px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.chat-header h2 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.message-container {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #e9ecef;
+}
+
+.message {
+    max-width: 60%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.sent {
+    background-color: #d1e7dd;
+    margin-left: auto;
+    text-align: right;
+}
+
+.received {
+    background-color: #f8d7da;
+    margin-right: auto;
+    text-align: left;
+}
+
+.message-input-area {
+    display: flex;
+    padding: 15px;
+    background-color: #ffffff;
+    border-top: 1px solid #ddd;
+}
+
+.message-input-area input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    margin-right: 10px;
+    font-size: 1em;
+}
+
+.message-input-area button {
+    padding: 10px 20px;
+    background-color: #6ca0dc;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s;
+}
+
+.message-input-area button:hover {
+    background-color: #5b8dc9;
+}

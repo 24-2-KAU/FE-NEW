@@ -2,6 +2,41 @@ const express = require('express');
 const router = express.Router();
 const connection = require('../database/connect/mysql');
 
+
+router.get('/api/chat/chatroom', (req, res) => {
+    const { userId, friendId } = req.query;
+
+    if (!userId || !friendId) {
+        console.error('userId 또는 friendId가 제공되지 않았습니다:', { userId, friendId });
+        return res.status(400).json({ error: 'userId 또는 friendId가 제공되지 않았습니다.' });
+    }
+
+    const query = `
+        SELECT chatRoom_id
+        FROM mydb.chat_room
+        WHERE (ad_id = ? AND influencer_id = ?)
+        OR (ad_id = ? AND influencer_id = ?)
+    `;
+
+    connection.query(query, [userId, friendId, friendId, userId], (err, results) => {
+        if (err) {
+            console.error('채팅방 조회 실패:', err);
+            return res.status(500).json({ error: '채팅방 조회 중 오류 발생' });
+        }
+
+        if (results.length > 0) {
+            console.log('조회된 chatRoomId:', results[0].chatRoom_id);
+            return res.status(200).json({ chatRoomId: results[0].chatRoom_id });
+        } else {
+            console.log('채팅방을 찾을 수 없습니다.');
+            return res.status(404).json({ error: '채팅방을 찾을 수 없습니다.' });
+        }
+    });
+});
+
+
+
+
 // 광고주의 채팅방 목록 가져오기
 router.post('/api/chat/advertiser', (req, res) => {
     const { ad_id } = req.body;
@@ -56,96 +91,38 @@ router.get('/api/chat/influencer/:influencer_id', (req, res) => {
     );
 });
 
-// 특정 채팅방에서 메시지 가져오기
-router.get('/api/chat/messages/:chatRoom_id', (req, res) => {
-    const { chatRoom_id } = req.params;
+router.get('/api/chat/:chatRoomId/messages', (req, res) => {
+    const chatRoomId = req.params.chatRoomId;
+    console.log('메시지 요청 chatRoomId:', chatRoomId);
 
-    connection.query(
-        'SELECT * FROM mydb.messages WHERE chatRoom_id = ? ORDER BY sent_at',
-        [chatRoom_id],
-        (err, results) => {
-            if (err) {
-                console.error('메시지 조회 실패:', err);
-                return res.status(500).json({ message: '메시지 조회 실패' });
-            }
-
-            if (results.length === 0) {
-                return res.status(404).json({ message: '해당 채팅방에 메시지가 없습니다.' });
-            }
-
-            return res.status(200).json({
-                message: '메시지를 성공적으로 조회했습니다.',
-                messages: results,
-            });
-        }
-    );
-});
-
-// 메시지 전송
-router.post('/api/chat/send', (req, res) => {
-    const { chatRoom_id, sender_id, receiver_id, content } = req.body;
-    const sent_at = new Date();
-    const read_status = 0;
-
-    connection.query(
-        'INSERT INTO mydb.messages (chatRoom_id, sender_id, receiver_id, content, sent_at, read_status) VALUES (?, ?, ?, ?, ?, ?)',
-        [chatRoom_id, sender_id, receiver_id, content, sent_at, read_status],
-        (err, result) => {
-            if (err) {
-                console.error('메시지 전송 실패:', err);
-                return res.status(500).json({ message: '메시지 전송 실패' });
-            }
-
-            return res.status(201).json({ message: '메시지 전송 성공' });
-        }
-    );
-});
-
-// 채팅방 생성 API (새 채팅방 생성 시 초기 메시지 추가)
-router.post('/api/chat/room/create', (req, res) => {
-    const { ad_id, influencer_id, initial_message } = req.body;
-    const created_at = new Date();
-
-    if (!ad_id || !influencer_id) {
-        return res.status(400).json({ message: '광고주 ID와 인플루언서 ID가 필요합니다.' });
+    if (!chatRoomId) {
+        console.error('chatRoomId가 제공되지 않았습니다.');
+        return res.status(400).json({ error: 'chatRoomId가 제공되지 않았습니다.' });
     }
 
-    // 새로운 채팅방 생성
-    connection.query(
-        'INSERT INTO mydb.chat_room (ad_id, influencer_id, created_at) VALUES (?, ?, ?)',
-        [ad_id, influencer_id, created_at],
-        (err, result) => {
-            if (err) {
-                console.error('채팅방 생성 실패:', err);
-                return res.status(500).json({ message: '채팅방 생성 실패' });
-            }
+    console.log('chat.js - 요청된 chatRoomId:', chatRoomId);
 
-            const chatRoom_id = result.insertId;
+    const query = `
+        SELECT sender_id, receiver_id, content, sent_at
+        FROM mydb.messages
+        WHERE chatRoom_id = ?
+        ORDER BY sent_at ASC
+    `;
 
-            // 초기 메시지 추가
-            connection.query(
-                'INSERT INTO mydb.messages (chatRoom_id, sender_id, receiver_id, content, sent_at, read_status) VALUES (?, ?, ?, ?, ?, ?)',
-                [chatRoom_id, influencer_id, ad_id, initial_message, new Date(), 0],
-                (err, messageResult) => {
-                    if (err) {
-                        console.error('환영 메시지 생성 실패:', err);
-                        return res.status(500).json({ message: '채팅방은 생성되었으나, 초기 메시지 추가에 실패했습니다.' });
-                    }
-
-                    return res.status(201).json({
-                        message: '채팅방이 성공적으로 생성되었습니다.',
-                        chatRoom_id: chatRoom_id,
-                    });
-                }
-            );
+    connection.query(query, [chatRoomId], (err, results) => {
+        if (err) {
+            console.error('메시지 조회 실패:', err);
+            return res.status(500).json({ error: '메시지 조회 중 오류 발생' });
         }
-    );
+
+        res.status(200).json({ messages: results });
+    });
 });
 
 // 채팅방 삭제
 router.delete('/api/chat/room/:chatRoom_id', (req, res) => {
     const { chatRoom_id } = req.params;
-
+    console.log("채팅방 삭제")
     connection.query(
         'DELETE FROM mydb.chat_room WHERE chatRoom_id = ?',
         [chatRoom_id],
@@ -160,6 +137,32 @@ router.delete('/api/chat/room/:chatRoom_id', (req, res) => {
             }
 
             return res.status(200).json({ message: '채팅방이 성공적으로 삭제되었습니다.' });
+        }
+    );
+});
+
+// 이전 대화 목록 가져오기 (친구 목록)
+router.get('/api/chat/friends', (req, res) => {
+    const userId = req.query.userId;  // 현재 로그인한 사용자 ID
+    console.log('친구 목록 요청 userId:', userId);
+    // 사용자가 참여한 모든 채팅방을 조회하고, 상대방 ID를 가져옴
+    connection.query(
+        `SELECT 
+            chatRoom_id,
+            CASE 
+                WHEN ad_id = ? THEN influencer_id 
+                ELSE ad_id 
+            END AS friend_id
+        FROM chat_room
+        WHERE ad_id = ? OR influencer_id = ?`,
+        [userId, userId, userId],
+        (err, results) => {
+            if (err) {
+                console.error('친구 목록 조회 실패:', err);
+                return res.status(500).json({ message: '친구 목록 조회 실패' });
+            }
+
+            return res.status(200).json({ friends: results });
         }
     );
 });

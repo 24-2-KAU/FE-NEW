@@ -42,6 +42,8 @@ function displayProducts(products) {
     });
 }
 
+let ws; // WebSocket 인스턴스를 전역으로 유지
+
 async function startChat(ad_id, productName) {
     const influencer_id = localStorage.getItem('email');
     if (!influencer_id) {
@@ -49,24 +51,41 @@ async function startChat(ad_id, productName) {
         return;
     }
 
-    try {
-        const response = await fetch('http://localhost:3000/api/chat/room/create', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
+    // WebSocket 연결이 이미 열려 있으면 새로운 연결을 만들지 않음
+    if (!ws || ws.readyState !== WebSocket.OPEN) {
+        ws = new WebSocket('ws://localhost:3000');
+
+        ws.onopen = () => {
+            console.log('WebSocket 연결이 열렸습니다.');
+            // 연결이 열린 후에만 메시지를 전송
+            ws.send(JSON.stringify({
+                type: 'newChat',
                 ad_id: ad_id,
                 influencer_id: influencer_id,
                 initial_message: `${influencer_id}님이 '${productName}'에 대해 대화를 시작하고자 합니다.`
-            })
-        });
+            }));
+        };
 
-        const data = await response.json();
-        if (data.message === '채팅방이 성공적으로 생성되었습니다.') {
-            window.location.href = 'influencer_messenger.html';
-        } else {
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            if (data.message.startsWith('Chat started')) {
+                alert('채팅방으로 이동합니다.');
+                window.location.href = `/chatting/influencer_messenger.html?chatRoomId=${data.chatRoom_id || 'generated_chatRoomId'}`;
+            }
+        };
+
+        ws.onerror = (error) => {
+            console.error('WebSocket error:', error);
             alert('채팅방 생성에 실패했습니다.');
-        }
-    } catch (error) {
-        console.error('채팅방 생성 중 오류:', error);
+        };
+    } else {
+        // 이미 WebSocket이 열려 있는 경우 바로 메시지 전송
+        ws.send(JSON.stringify({
+            type: 'newChat',
+            ad_id: ad_id,
+            influencer_id: influencer_id,
+            initial_message: `${influencer_id}님이 '${productName}'에 대해 대화를 시작하고자 합니다.`
+        }));
     }
 }
+

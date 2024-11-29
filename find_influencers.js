@@ -58,13 +58,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         for (const item of data) {
-            const channelInfo = await fetchChannelInfo(item.channelId);
             const channelDiv = document.createElement("div");
             channelDiv.classList.add("result-item");
 
             channelDiv.innerHTML = `
-                <h2>채널 이름: ${channelInfo.title || "알 수 없음"}</h2>
-                <img src="${channelInfo.thumbnail || ""}" alt="채널 썸네일" style="width: 100px; height: auto;">
+                <h2>채널 이름: ${item.channelTitle || "알 수 없음"}</h2>
+                <img src="${item.channelThumbnail || ""}" alt="채널 썸네일" style="width: 100px; height: auto;">
                 <p><strong>채널 ID:</strong> <a href="https://www.youtube.com/channel/${item.channelId}" target="_blank">${item.channelId}</a></p>
                 <p><strong>배지:</strong> ${item.badges.join(", ")}</p>
                 ${item.channelList.length > 0 ? `<p><strong>채널 추천 이유:</strong> ${item.channelList[0].reason} (점수: ${item.channelList[0].score})</p>` : ""}
@@ -88,19 +87,5 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         html += "</ul>";
         return html;
-    }
-
-    async function fetchChannelInfo(channelId) {
-        // FastAPI에서 채널 정보를 가져오는 엔드포인트 호출
-        try {
-            const response = await fetch(`http://127.0.0.1:8000/channel-info/${channelId}`);
-            if (!response.ok) {
-                throw new Error(`채널 정보 가져오기 실패: ${channelId}`);
-            }
-            return await response.json();
-        } catch (error) {
-            console.error("채널 정보 가져오기 오류:", error);
-            return { title: "알 수 없음", thumbnail: "" }; // 기본값 반환
-        }
     }
 });
